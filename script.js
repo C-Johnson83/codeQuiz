@@ -15,11 +15,11 @@ var Qarray = [
     " A very useful tool used during development and debugging for printing content to the debugger is :",
 ];
 // Set answer arrays
-var q1Ops = ["strings","booleans","alerts","numbers"];
-var q2Ops = ["quotes","curly brackets","parenthesis","square brackets"];
-var q3Ops = ["numbers and strings","other arrays","booleans","all of the above"];
-var q4Ops = ["commas","curly brackets","quotes","parenthesis"];
-var q5Ops = ["JavaScript","terminal/bash","for loops","console.log"];
+var q1Ops = ["1. strings","2. booleans","3. alerts","4. numbers"];
+var q2Ops = ["1. quotes","2. curly brackets","3. parenthesis","4. square brackets"];
+var q3Ops = ["1. numbers and strings","2. other arrays","3. booleans","4. all of the above"];
+var q4Ops = ["1. commas","2. curly brackets","3. quotes","4. parenthesis"];
+var q5Ops = ["1. JavaScript","2. terminal/bash","3. for loops","4. console.log"];
 var btnwds = [q1Ops,q2Ops,q3Ops,q4Ops,q5Ops]
 var i = 0;
 // set starting values for text elements
@@ -36,10 +36,10 @@ function question(event) {
     // Prevent default action
     event.preventDefault();
     console.log(event);
+    subButton.setAttribute("hidden", '')
     qstn.textContent = Qarray[i];
     message.textContent = "";
     qBtn1.textContent = btnwds[i][0];
-    console.log(qBtn1)
     qBtn2.textContent = btnwds[i][1];
     qBtn3.textContent = btnwds[i][2];
     qBtn4.textContent = btnwds[i][3];
