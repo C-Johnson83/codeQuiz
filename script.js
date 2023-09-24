@@ -14,7 +14,7 @@ qBtn4.setAttribute("id", "b4")
 var i = 0;
 var score = 0;
 var timer = document.querySelector("#timer");
-var timeLeft = 45;
+var timeLeft = 5;
 // Set question and answer array
 
 var questionArray = [
@@ -86,8 +86,13 @@ function countdown(event) {
             timeLeft--;
         } else {
             // Once `timeLeft` gets to 0, set `timer` to an empty string
-            timer.textContent = '';
-            i=5;
+            timer.textContent = '0 seconds remaining';
+            qstn.textContent = "All done!";
+            message.textContent = "your final score is " + score;
+            myDiv.removeChild(qBtn1);
+            myDiv.removeChild(qBtn2);
+            myDiv.removeChild(qBtn3);
+            myDiv.removeChild(qBtn4);
             
             // Use `clearInterval()` to stop the timer
             clearInterval(timeInterval);
