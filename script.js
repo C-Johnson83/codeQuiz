@@ -76,7 +76,7 @@ function countdown(event) {
     var timeInterval = setInterval(function () {
         // As long as the `timeLeft` is greater than 1
         if (timeLeft > 1) {
-            // Set the `textContent` of `timerEl` to show the remaining seconds
+            // Set the `textContent` of `timer` to show the remaining seconds
             timer.textContent = timeLeft + ' seconds remaining';
             // Decrement `timeLeft` by 1
             timeLeft--;
@@ -85,8 +85,10 @@ function countdown(event) {
             timer.textContent = timeLeft + ' second remaining';
             timeLeft--;
         } else {
-            // Once `timeLeft` gets to 0, set `timerEl` to an empty string
+            // Once `timeLeft` gets to 0, set `timer` to an empty string
             timer.textContent = '';
+            i=5;
+            
             // Use `clearInterval()` to stop the timer
             clearInterval(timeInterval);
             // Call the `displayMessage()` function
