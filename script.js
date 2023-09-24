@@ -34,39 +34,37 @@ var questionArray = [
             1: "quotes",
             2: "parenthesis",
             3: "curly brackets",
-            4:"square brackets"
+            4: "square brackets"
         }
     },
     {
         question: "Arrays in JavaScript can be used to store _____",
         answers: {
-          1 : "numbers and strings",
-           2: "other arrays",
-           3: "booleans",
-            4:"all of the above"
+            1: "numbers and strings",
+            2: "other arrays",
+            3: "booleans",
+            4: "all of the above"
         }
     },
     {
         question: "String values must be enclosed within _____ when being assigned to variables.",
         answers: {
-           1: "commas",
-           2: "curly brackets",
-          3:  "quotes",
-          4:  "parenthesis"
+            1: "commas",
+            2: "curly brackets",
+            3: "quotes",
+            4: "parenthesis"
         }
     },
     {
         question: " A very useful tool used during development and debugging for printing content to the debugger is :",
         answers: {
-          1:  "console.log",
-          2:  "terminal/bash",
-          3:  "for loops",
-          4:  "JavaScript"
+            1: "console.log",
+            2: "terminal/bash",
+            3: "for loops",
+            4: "JavaScript"
         }
     },
-    {question: "All Done!",
-    tote: "your final score is " + score,
-    }];
+   ];
 function countdown(event) {
     event.preventDefault;
 
@@ -120,7 +118,7 @@ function questionTime(event) {
     event.preventDefault();
     console.log(event.target.firstChild.data)
     // Prevent default action
-    if (event.target.firstChild.data == ansirs[i-1]) {
+    if (event.target.firstChild.data == ansirs[i]) {
         score = score + 10;
     } else {
         timeLeft = timeLeft - 5
@@ -140,7 +138,7 @@ function questionTime(event) {
     i++;
 
 
-    if (i == 6) {
+    if (i == 5) {
 
 
         qstn.textContent = "All done!";
