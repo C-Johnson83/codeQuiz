@@ -64,6 +64,12 @@ var questionArray = [
             4: "JavaScript"
         }
     },
+    {
+        question: " ",
+        answers: {
+        
+        }
+    },
    ];
 function countdown(event) {
     event.preventDefault;
@@ -117,16 +123,18 @@ function questionTime(event) {
     subButton.setAttribute("hidden", 'true')
     event.preventDefault();
     console.log(event.target.firstChild.data)
+    console.log("score", score)
+    console.log(i)
     // Prevent default action
     if (event.target.firstChild.data == ansirs[i]) {
         score = score + 10;
     } else {
         timeLeft = timeLeft - 5
     }
-    console.log("score", score)
+   
     console.log("Question\n", questionArray[i].question);
     console.log("Answer\n", ansirs[i])
-
+    console.log("New score", score)
 
     qstn.textContent = questionArray[i].question;
     message.textContent = "";
@@ -134,11 +142,11 @@ function questionTime(event) {
     qBtn2.textContent = questionArray[i].answers[2];
     qBtn3.textContent = questionArray[i].answers[3];
     qBtn4.textContent = questionArray[i].answers[4];
-    console.log(i)
+   
     i++;
+    console.log("New I", i)
 
-
-    if (i == 5) {
+    if (i > 5) {
 
 
         qstn.textContent = "All done!";
