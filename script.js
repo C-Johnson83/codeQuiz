@@ -13,6 +13,8 @@ var qBtn4 = document.createElement('button')
 qBtn4.setAttribute("id", "b4")
 var i = 0;
 var score = 0;
+var timer = document.querySelector("#timer");
+var timeLeft = 45;
 // Set question and answer array
 
 var questionArray = [
@@ -67,10 +69,36 @@ var questionArray = [
         correctAnswer: '1'
     },
 ];
+function countdown(event) {
+    event.preventDefault;
+
+    // Use the `setInterval()` method to call a function to be executed every 1000 milliseconds
+    var timeInterval = setInterval(function () {
+        // As long as the `timeLeft` is greater than 1
+        if (timeLeft > 1) {
+            // Set the `textContent` of `timerEl` to show the remaining seconds
+            timer.textContent = timeLeft + ' seconds remaining';
+            // Decrement `timeLeft` by 1
+            timeLeft--;
+        } else if (timeLeft === 1) {
+            // When `timeLeft` is equal to 1, rename to 'second' instead of 'seconds'
+            timer.textContent = timeLeft + ' second remaining';
+            timeLeft--;
+        } else {
+            // Once `timeLeft` gets to 0, set `timerEl` to an empty string
+            timer.textContent = '';
+            // Use `clearInterval()` to stop the timer
+            clearInterval(timeInterval);
+            // Call the `displayMessage()` function
+
+        }
+    }, 1000);
+}
 // set starting values for text elements
 qstn.textContent = "Coding Quiz Challenge";
 message.textContent = "Try to answer the following code related questions within the time limit.\n\nKeep in mind that incorrect answers will penalize your score/time by 10 seconds";
-subButton.addEventListener("click", questionTime);
+subButton.addEventListener("click", countdown);
+addEventListener("click", questionTime);
 
 
 
@@ -79,12 +107,13 @@ function questionTime(event) {
     myDiv.appendChild(qBtn2);
     myDiv.appendChild(qBtn3);
     myDiv.appendChild(qBtn4);
+    subButton.setAttribute("hidden", 'true')
     event.preventDefault();
 
     // Prevent default action
 
     console.log(event);
-    // subButton.setAttribu"hidden", '')
+
     qstn.textContent = questionArray[i].question;
     message.textContent = "";
     qBtn1.textContent = questionArray[i].answers[1];
@@ -104,6 +133,7 @@ function questionTime(event) {
         myDiv.removeChild(qBtn2);
         myDiv.removeChild(qBtn3);
         myDiv.removeChild(qBtn4);
+
     }
 }
 ;
