@@ -168,7 +168,7 @@ function highScores(event){
     console.log("score event",event)
     // scoreBoard.setAttribute("hidden", "false");
 scoreBoard.appendChild(player)
-player.textContent= input.value + " with a " + score;
+player.textContent= input.value+"  with  a  " +score;
 };
 // set starting values for text elements
 timer.textContent = timeLeft + " seconds for the test"
