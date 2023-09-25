@@ -66,8 +66,37 @@ var questionArray = [
         }
     },
     {
-        question: " ",
+        question: "What programming language is commonly used for adding interactivity to web pages? ",
         answers: {
+            1: " JavaScript",
+
+        }
+    },
+    {
+        question: "What does CSS stand for? ",
+        answers: {
+            1: "Cascading Style Sheet"
+
+        }
+    },
+    {
+        question: "Which HTML tag is used to create an unordered list? ",
+        answers: {
+            1: "<ul>",
+
+        }
+    },
+    {
+        question: "What is the purpose of the HTML <a> tag? ",
+        answers: {
+            1:"link",
+
+        }
+    },
+    {
+        question: "Which CSS property is used to change the text color of an element? ",
+        answers: {
+            1:"color"
 
         }
     },
@@ -149,7 +178,7 @@ function questionTime(event) {
     i++;
     console.log("New I", i)
 
-    if (i > 5) {
+    if (i > 10) {
 
         timer.textContent = 'No seconds remaining\nYou answered all the questions!';
         qstn.textContent = "All done!";
