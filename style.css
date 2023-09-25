@@ -40,7 +40,9 @@ button {
     display: flex;
     flex-direction: row;
 }
-
+li {
+    text-transform: uppercase;
+}
 input {
     text-transform: uppercase;
     color: blueviolet;

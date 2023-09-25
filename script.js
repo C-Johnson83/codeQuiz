@@ -4,6 +4,8 @@ var message = document.querySelector("#message");
 var startButton = document.querySelector("#start");
 var submitButton = document.querySelector("#submit");
 var input = document.querySelector('#inputBar');
+var buttonGrid = document.querySelector('#buttonGrid');
+var scoreBoard = document.querySelector("#scores")
 var formDiv = document.getElementById("form");
 var buttonDiv = document.getElementById("section");
 var qBtn1 = document.createElement('button')
@@ -15,7 +17,7 @@ qBtn3.setAttribute("id", "b3")
 var qBtn4 = document.createElement('button')
 qBtn4.setAttribute("id", "b4")
 var answerArray = ["Start Quiz", "JavaScript", "Cascading Style Sheets", "<ul>", "link", "color", "alerts", "parenthesis", "all of the above", "quotes", "console.log"];
-
+var player =  document.createElement("li")
 
 var i = 0;
 var score = 0;
@@ -158,13 +160,23 @@ function countdown(event) {
         }
     }, 1000);
 }
+
+
+
+function highScores(event){
+    console.log(input)
+    console.log("score event",event)
+    // scoreBoard.setAttribute("hidden", "false");
+scoreBoard.appendChild(player)
+player.textContent= input.value + " with a " + score;
+};
 // set starting values for text elements
 timer.textContent = timeLeft + " seconds for the test"
 qstn.textContent = "Coding Quiz Challenge";
 message.textContent = "Try to answer the following code related questions within the time limit.\n\nKeep in mind that incorrect answers will penalize your score/time by 5 seconds";
 startButton.addEventListener("click", countdown)
 startButton.addEventListener("click", questionTime);
-submitButton.addEventListener("click",)
+submitButton.addEventListener("click", highScores)
 qBtn1.addEventListener("click", questionTime);
 qBtn2.addEventListener("click", questionTime);
 qBtn3.addEventListener("click", questionTime);
