@@ -11,11 +11,12 @@ var qBtn3 = document.createElement('button')
 qBtn3.setAttribute("id", "b3")
 var qBtn4 = document.createElement('button')
 qBtn4.setAttribute("id", "b4")
-var ansirs = ["Y", "alerts", "parenthesis", "all of the above", "quotes", "console.log"]
+var ansirs = ["Start Quiz", "alerts", "parenthesis", "all of the above", "quotes", "console.log"]
+var input = document.createElement('input')
 var i = 0;
 var score = 0;
 var timer = document.querySelector("#timer");
-var timeLeft = 59;
+var timeLeft = 60;
 // Set question and answer array
 
 var questionArray = [
@@ -67,10 +68,10 @@ var questionArray = [
     {
         question: " ",
         answers: {
-        
+
         }
     },
-   ];
+];
 function countdown(event) {
     event.preventDefault;
 
@@ -88,13 +89,14 @@ function countdown(event) {
             timeLeft--;
         } else {
             // Once `timeLeft` gets to 0, set `timer` to an empty string
-            timer.textContent = '0 seconds remaining';
+            timer.textContent = '0 seconds remaining\nThe time ran out!';
             qstn.textContent = "All done!";
             message.textContent = "your final score is " + score;
             myDiv.removeChild(qBtn1);
             myDiv.removeChild(qBtn2);
             myDiv.removeChild(qBtn3);
             myDiv.removeChild(qBtn4);
+            myDiv.appendChild(input);
 
             // Use `clearInterval()` to stop the timer
             clearInterval(timeInterval);
@@ -104,6 +106,7 @@ function countdown(event) {
     }, 1000);
 }
 // set starting values for text elements
+timer.textContent = timeLeft + " seconds for the test"
 qstn.textContent = "Coding Quiz Challenge";
 message.textContent = "Try to answer the following code related questions within the time limit.\n\nKeep in mind that incorrect answers will penalize your score/time by 10 seconds";
 subButton.addEventListener("click", countdown)
@@ -131,7 +134,7 @@ function questionTime(event) {
     } else {
         timeLeft = timeLeft - 5
     }
-   
+
     console.log("Question\n", questionArray[i].question);
     console.log("Answer\n", ansirs[i])
     console.log("New score", score)
@@ -142,19 +145,21 @@ function questionTime(event) {
     qBtn2.textContent = questionArray[i].answers[2];
     qBtn3.textContent = questionArray[i].answers[3];
     qBtn4.textContent = questionArray[i].answers[4];
-   
+
     i++;
     console.log("New I", i)
 
     if (i > 5) {
 
-
+        timer.textContent = 'No seconds remaining\nYou answered all the questions!';
         qstn.textContent = "All done!";
         message.textContent = "your final score is " + score;
         myDiv.removeChild(qBtn1);
         myDiv.removeChild(qBtn2);
         myDiv.removeChild(qBtn3);
         myDiv.removeChild(qBtn4);
+
+        myDiv.appendChild(input)
 
     }
 }
