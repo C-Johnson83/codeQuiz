@@ -1,31 +1,41 @@
-// Set query variables
-var qstn = document.querySelector("#intro");
-var message = document.querySelector("#message");
-var startButton = document.querySelector("#start");
-var submitButton = document.querySelector("#submit");
-var input = document.querySelector('#inputBar');
-var buttonGrid = document.querySelector('#buttonGrid');
-var scoreBoard = document.querySelector("#scores")
-var formDiv = document.getElementById("form");
-var buttonDiv = document.getElementById("section");
-var qBtn1 = document.createElement('button')
-qBtn1.setAttribute("id", "b1")
-var qBtn2 = document.createElement('button')
-qBtn2.setAttribute("id", "b2")
-var qBtn3 = document.createElement('button')
-qBtn3.setAttribute("id", "b3")
-var qBtn4 = document.createElement('button')
-qBtn4.setAttribute("id", "b4")
-var answerArray = ["Start Quiz", "JavaScript", "Cascading Style Sheets", "<ul>", "link", "color", "alerts", "parenthesis", "all of the above", "quotes", "console.log"];
-var player =  document.createElement("li")
+// Functions for less typing and styling
+function select(id) {
+    return document.querySelector(id);
+  }
 
+  function selectAll(id) {
+    return document.querySelectorAll(id);
+  }
+
+  function createButton(id) {
+    var button = document.createElement("button");
+    button.setAttribute("id", id);
+    button.setAttribute("class", "btn");
+    return button;
+  }
+// Set query variables
+var question = select("#intro");
+var message = select("#message");
+var startButton = select("#start");
+var submitButton = select("#submit");
+var input = select('#inputBar');
+var buttonGrid = selectAll('.btn');
+var scoreBoard = select("#scores")
+var formDiv = select("form");
+var buttonDiv = document.getElementById("section");
+var qBtn1 = createButton("b1");
+var qBtn2 = createButton("b2");
+var qBtn3 = createButton("b3");
+var qBtn4 = createButton("b4");
+var answerArray = ["StartQuiz","JavaScript", "Cascading Style Sheets", "<ul>", "link", "color", "alerts", "parenthesis", "all of the above", "quotes", "console.log"];
+var player =  document.createElement("li")
 var i = 0;
 var score = 0;
-var timer = document.querySelector("#timer");
+var timer = select("#timer");
 var timeLeft = 60;
 var timeInterval
-// Set question and answer array
 
+// Set question and answer array
 var questionArray = [
     {
         question: "What programming language is commonly used for adding interactivity to web pages? ",
@@ -129,22 +139,21 @@ var questionArray = [
 function countdown(event) {
     event.preventDefault();
 
-    // Use the `setInterval()` method to call a function to be executed every 1000 milliseconds
+    // Use the setInterval() method to call a function to be executed every 1000 milliseconds, or 1 second
     timeInterval = setInterval(function () {
-        // As long as the `timeLeft` is greater than 1
         if (timeLeft > 1) {
-            // Set the `textContent` of `timer` to show the remaining seconds
+            // Set the text of of the timer to show the remaining seconds
             timer.textContent = timeLeft + ' seconds remaining';
-            // Decrement `timeLeft` by 1
+            // Decrease timer by 1
             timeLeft--;
         } else if (timeLeft === 1) {
-            // When `timeLeft` is equal to 1, rename to 'second' instead of 'seconds'
+            // When timer is equal to 1, rename to 'second' instead of 'seconds'
             timer.textContent = timeLeft + ' second remaining';
             timeLeft--;
         } else {
-            // Once `timeLeft` gets to 0, set `timer` to an empty string
+            // Once timer gets to 0, set show end messages, show submit button, and remove answer buttons
             timer.textContent = '0 seconds remaining\nThe time ran out!';
-            qstn.textContent = "All done!";
+            question.textContent = "All done!";
             message.textContent = "your final score is\n" + score + " out of 100";
             formDiv.removeChild(qBtn1);
             formDiv.removeChild(qBtn2);
@@ -153,7 +162,7 @@ function countdown(event) {
             formDiv.appendChild(input);
             submitButton.hidden = false
             input.hidden = false
-            // Use `clearInterval()` to stop the timer
+            // Use `clearInterval()` to stop the timer to show seconds remaining
             clearInterval(timeInterval);
             // Call the `displayMessage()` function
 
@@ -170,9 +179,10 @@ function highScores(event){
 scoreBoard.appendChild(player)
 player.textContent= input.value+"  with  a  " +score;
 };
+
 // set starting values for text elements
 timer.textContent = timeLeft + " seconds for the test"
-qstn.textContent = "Coding Quiz Challenge";
+question.textContent = "Coding Quiz Challenge";
 message.textContent = "Try to answer the following code related questions within the time limit.\n\nKeep in mind that incorrect answers will penalize your score/time by 5 seconds";
 startButton.addEventListener("click", countdown)
 startButton.addEventListener("click", questionTime);
@@ -204,7 +214,7 @@ function questionTime(event) {
     console.log("Answer\n", answerArray[i])
     console.log("New score", score)
 
-    qstn.textContent = questionArray[i].question;
+    question.textContent = questionArray[i].question;
     message.textContent = "";
     qBtn1.textContent = questionArray[i].answers[1];
     qBtn2.textContent = questionArray[i].answers[2];
@@ -217,7 +227,7 @@ function questionTime(event) {
     if (i > 10) {
         clearInterval(timeInterval)
         timer.textContent = "Finished with " + timeLeft + " seconds remaining!"
-        qstn.textContent = "Well Done!";
+        question.textContent = "Well Done!";
         message.textContent = "your final score is\n" + score + " out of 100"
         formDiv.removeChild(qBtn1);
         formDiv.removeChild(qBtn2);
