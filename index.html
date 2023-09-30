@@ -11,10 +11,10 @@
 
 <body>
     <header>
-        <P>View high scores</P>
+        <p><a href="#scores" id="showScores">View high scores</a></p>
         <p id="timer">60 second limit</p>
     </header>
-    <ol id="scores">
+    <ol id="scores" hidden>
     </ol>
     <section>
         <section id="game">
@@ -26,6 +26,9 @@
                 <button id="start">Start Quiz</button>
                 <input type="text" placeholder="Initials Here" id="inputBar"  hidden >
                 <button id="submit" hidden>Submit</button>
+                <button id="restart" hidden>Restart</button>
+                <button id="clear" hidden>Clear Scores</button>
+                <button id="home" hidden>Back to Main</button>
             </section>
         </section>
     </section>

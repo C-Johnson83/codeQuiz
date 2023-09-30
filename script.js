@@ -18,6 +18,10 @@ var question = select("#intro");
 var message = select("#message");
 var startButton = select("#start");
 var submitButton = select("#submit");
+var restartButton = select("#restart");
+var clearButton = select("#clear");
+var homeButton = select("#home");
+var show = select("#showScores");
 var input = select('#inputBar');
 var buttonGrid = selectAll('.btn');
 var scoreBoard = select("#scores")
@@ -33,6 +37,8 @@ var playerScore = localStorage.getItem("playerScore");
 var timer = select("#timer");
 var timeLeft = 60;
 var timeInterval
+var highScoresArray = JSON.parse(localStorage.getItem("highScores")) || [];
+var highScoresList = document.getElementById("scores");
 // Set question and answer choices 
 var questionArray = [
     {
@@ -132,9 +138,6 @@ var questionArray = [
 var answerArray = ["JavaScript", "Cascading Style Sheets", "<ul>", "link", "color", "alerts", "parenthesis", "all of the above", "quotes", "console.log"];
 
 function countdown() {
-
-
-
     // Use the setInterval() method to call a function to be executed every 1000 milliseconds, or 1 second
     timeInterval = setInterval(function () {
         if (timeLeft > 1) {
@@ -161,25 +164,56 @@ function countdown() {
             // Use `clearInterval()` to stop the timer to show seconds remaining
             clearInterval(timeInterval);
             // Call the `displayMessage()` function
-
         }
     }, 1000);
 }
 
-function highScores(event) {
-    console.log(input)
-    console.log("score event", event)
-    // scoreBoard.setAttribute("hidden", "false");
-    scoreBoard.appendChild(player)
-    player.textContent = input.value + "  with  a  " + score + " and still had " + timeLeft + " seconds remaining";
-};
+function highScores() {
+    submitButton.hidden = true;
+    restartButton.hidden = false;
+    clearButton.hidden = false;
+    homeButton.hidden = false;
+    highScoresList.hidden = false
+    input.hidden = true;
+    // Create a new object to store the player's name, score, and time remaining
+    var playerData = {
+        name: input.value,
+        finalScore: score,
+        timeRemaining: timeLeft
+    };
+    // Push the player's data into the high scores array
+    highScoresArray.push(playerData);
+
+    // Store the updated high scores array in local storage
+    localStorage.setItem("highScores", JSON.stringify(highScoresArray));
+    // Display high scores or update your displayHighScores function to show the latest scores
+    displayHighScores()
+}
+function displayHighScores() {
+    // set the content header for the score list
+    highScoresList.innerHTML = 'HIGH SCORES:\n';
+
+    // Loop through the high scores in the local storage and add them to the <ol>
+    for (var i = 0; i < highScoresArray.length; i++) {
+        var playerData = highScoresArray[i];
+        console.log(playerData);
+        var listItem = document.createElement("li");
+        listItem.textContent = playerData.name + " - Score: " + playerData.finalScore + ", Time Remaining: " + playerData.timeRemaining + " seconds";
+        highScoresList.appendChild(listItem);
+    }
+
+
+    // Call the displayHighScores function when you want to display high scores
+}
+displayHighScores();
+
 
 // set starting values for text elements
 timer.textContent = timeLeft + " seconds for the test"
 question.textContent = "Coding Quiz Challenge";
 message.textContent = "Try to answer the following code related questions within the time limit. Incorrect answers will penalize your time by 5 seconds";
-// Add listening event and starting function to the start button
-startButton.addEventListener('click', function (event) {
+
+function start(event) {
     event.preventDefault();
     countdown();
     formDiv.appendChild(qBtn1);
@@ -194,14 +228,66 @@ startButton.addEventListener('click', function (event) {
     qBtn2.textContent = questionArray[i].answers[2];
     qBtn3.textContent = questionArray[i].answers[3];
     qBtn4.textContent = questionArray[i].answers[4];
+}
+
+
+
+// Add listening event and starting function to the start button
+startButton.addEventListener('click', function (event) {
+    event.preventDefault();
+    highScoresList.hidden = true;
+    start(event);
 });
-// Add listening events to the buttons
+// Add listening events and functions to the buttons
 submitButton.addEventListener("click", highScores);
+show.addEventListener("click", function (event) {
+    event.preventDefault();
+    highScoresList.hidden = false;
+});
+show.addEventListener("dblclick", function (event) {
+    event.preventDefault();
+    highScoresList.hidden = true;
+});
+
+homeButton.addEventListener("click", function (event) {
+    event.preventDefault();
+    submitButton.hidden = true;
+    restartButton.hidden = true;
+    clearButton.hidden = true;
+    highScoresList.hidden = true;
+    startButton.hidden = false;
+    homeButton.hidden = true;
+    score = 0; // Reset the score
+    timeLeft = 60; // Reset the timer
+    clearInterval(timeInterval); // Clear any existing interval
+timer.textContent = timeLeft + " seconds for the test"
+question.textContent = "Coding Quiz Challenge";
+message.textContent = "Try to answer the following code related questions within the time limit. Incorrect answers will penalize your time by 5 seconds";
+});
+
+restartButton.addEventListener("click", function (event) {
+    event.preventDefault();
+    submitButton.hidden = true;
+    restartButton.hidden = true;
+    clearButton.hidden = true;
+    highScoresList.hidden = true;
+    score = 0; // Reset the score
+    timeLeft = 60; // Reset the timer
+    clearInterval(timeInterval); // Clear any existing interval
+    timer.textContent = timeLeft + " seconds for the test";
+    start(event); // Start the quiz again
+});
+
+clearButton.addEventListener("click", function (event) {
+    event.preventDefault();
+    localStorage.removeItem("highScores"); // Remove the high scores data from local storage
+    highScoresList.innerHTML = 'HIGH SCORES:\n'; // Clear the displayed high scores?
+});
+
 qBtn1.addEventListener("click", questionTime);
 qBtn2.addEventListener("click", questionTime);
 qBtn3.addEventListener("click", questionTime);
 qBtn4.addEventListener("click", questionTime);
-
 
 function questionTime(event) {
     event.preventDefault();
@@ -209,9 +295,11 @@ function questionTime(event) {
         score = score + 10;
         localStorage.setItem("playerScore", score)
         console.log("Score", score)
+        console.log(playerScore)
         i++;
     } else {
         timeLeft = timeLeft - 5
+        i++;
     }
     if (i == 10) {
         clearInterval(timeInterval)
@@ -225,7 +313,6 @@ function questionTime(event) {
         formDiv.appendChild(input);
         submitButton.hidden = false
         input.hidden = false
-
     } else {
         question.textContent = questionArray[i].question;
         qBtn1.textContent = questionArray[i].answers[1];
