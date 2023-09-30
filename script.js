@@ -1,19 +1,19 @@
-// Functions for less typing and styling
+// Functions for query selecting and creating buttons
 function select(id) {
     return document.querySelector(id);
-  }
+}
 
-  function selectAll(id) {
+function selectAll(id) {
     return document.querySelectorAll(id);
-  }
+}
 
-  function createButton(id) {
+function createButton(id) {
     var button = document.createElement("button");
     button.setAttribute("id", id);
     button.setAttribute("class", "btn");
     return button;
-  }
-// Set query variables
+}
+// Set variables
 var question = select("#intro");
 var message = select("#message");
 var startButton = select("#start");
@@ -22,25 +22,23 @@ var input = select('#inputBar');
 var buttonGrid = selectAll('.btn');
 var scoreBoard = select("#scores")
 var formDiv = select("form");
-var buttonDiv = document.getElementById("section");
 var qBtn1 = createButton("b1");
 var qBtn2 = createButton("b2");
 var qBtn3 = createButton("b3");
 var qBtn4 = createButton("b4");
-var answerArray = ["StartQuiz","JavaScript", "Cascading Style Sheets", "<ul>", "link", "color", "alerts", "parenthesis", "all of the above", "quotes", "console.log"];
-var player =  document.createElement("li")
-var i = 0;
+var player = document.createElement("li")
+var i;
 var score = 0;
+var playerScore = localStorage.getItem("playerScore");
 var timer = select("#timer");
 var timeLeft = 60;
 var timeInterval
-
-// Set question and answer array
+// Set question and answer choices 
 var questionArray = [
     {
         question: "What programming language is commonly used for adding interactivity to web pages? ",
         answers: {
-            1: " JavaScript",
+            1: "JavaScript",
             2: "HTML",
             3: "CSS",
             4: "Python"
@@ -128,16 +126,14 @@ var questionArray = [
             4: "JavaScript"
         }
     },
-    {
-        question: " end",
-        answers: {
-            1: "wont see this",
 
-        }
-    },
 ];
-function countdown(event) {
-    event.preventDefault();
+
+var answerArray = ["JavaScript", "Cascading Style Sheets", "<ul>", "link", "color", "alerts", "parenthesis", "all of the above", "quotes", "console.log"];
+
+function countdown() {
+
+
 
     // Use the setInterval() method to call a function to be executed every 1000 milliseconds, or 1 second
     timeInterval = setInterval(function () {
@@ -170,23 +166,37 @@ function countdown(event) {
     }, 1000);
 }
 
-
-
-function highScores(event){
+function highScores(event) {
     console.log(input)
-    console.log("score event",event)
+    console.log("score event", event)
     // scoreBoard.setAttribute("hidden", "false");
-scoreBoard.appendChild(player)
-player.textContent= input.value+"  with  a  " +score;
+    scoreBoard.appendChild(player)
+    player.textContent = input.value + "  with  a  " + score + " and still had " + timeLeft + " seconds remaining";
 };
 
 // set starting values for text elements
 timer.textContent = timeLeft + " seconds for the test"
 question.textContent = "Coding Quiz Challenge";
-message.textContent = "Try to answer the following code related questions within the time limit.\n\nKeep in mind that incorrect answers will penalize your score/time by 5 seconds";
-startButton.addEventListener("click", countdown)
-startButton.addEventListener("click", questionTime);
-submitButton.addEventListener("click", highScores)
+message.textContent = "Try to answer the following code related questions within the time limit. Incorrect answers will penalize your time by 5 seconds";
+// Add listening event and starting function to the start button
+startButton.addEventListener('click', function (event) {
+    event.preventDefault();
+    countdown();
+    formDiv.appendChild(qBtn1);
+    formDiv.appendChild(qBtn2);
+    formDiv.appendChild(qBtn3);
+    formDiv.appendChild(qBtn4);
+    startButton.setAttribute("hidden", 'true')
+    message.textContent = "";
+    i = 0;
+    question.textContent = questionArray[i].question;
+    qBtn1.textContent = questionArray[i].answers[1];
+    qBtn2.textContent = questionArray[i].answers[2];
+    qBtn3.textContent = questionArray[i].answers[3];
+    qBtn4.textContent = questionArray[i].answers[4];
+});
+// Add listening events to the buttons
+submitButton.addEventListener("click", highScores);
 qBtn1.addEventListener("click", questionTime);
 qBtn2.addEventListener("click", questionTime);
 qBtn3.addEventListener("click", questionTime);
@@ -194,37 +204,16 @@ qBtn4.addEventListener("click", questionTime);
 
 
 function questionTime(event) {
-    formDiv.appendChild(qBtn1);
-    formDiv.appendChild(qBtn2);
-    formDiv.appendChild(qBtn3);
-    formDiv.appendChild(qBtn4);
-    startButton.setAttribute("hidden", 'true')
     event.preventDefault();
-    console.log(event.target.firstChild.data)
-    console.log("score", score)
-    console.log(i)
-    // Prevent default action
     if (event.target.firstChild.data == answerArray[i]) {
         score = score + 10;
+        localStorage.setItem("playerScore", score)
+        console.log("Score", score)
+        i++;
     } else {
         timeLeft = timeLeft - 5
     }
-
-    console.log("Question\n", questionArray[i].question);
-    console.log("Answer\n", answerArray[i])
-    console.log("New score", score)
-
-    question.textContent = questionArray[i].question;
-    message.textContent = "";
-    qBtn1.textContent = questionArray[i].answers[1];
-    qBtn2.textContent = questionArray[i].answers[2];
-    qBtn3.textContent = questionArray[i].answers[3];
-    qBtn4.textContent = questionArray[i].answers[4];
-
-    i++;
-    console.log("New I", i)
-
-    if (i > 10) {
+    if (i == 10) {
         clearInterval(timeInterval)
         timer.textContent = "Finished with " + timeLeft + " seconds remaining!"
         question.textContent = "Well Done!";
@@ -237,6 +226,12 @@ function questionTime(event) {
         submitButton.hidden = false
         input.hidden = false
 
-    }
-}
-;
+    } else {
+        question.textContent = questionArray[i].question;
+        qBtn1.textContent = questionArray[i].answers[1];
+        qBtn2.textContent = questionArray[i].answers[2];
+        qBtn3.textContent = questionArray[i].answers[3];
+        qBtn4.textContent = questionArray[i].answers[4];
+    };
+};
+
