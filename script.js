@@ -35,12 +35,112 @@ var i;
 var score = 0;
 var playerScore = localStorage.getItem("playerScore");
 var timer = select("#timer");
-var timeLeft = 60;
+var timeLeft = 90;
 var timeInterval
 var highScoresArray = JSON.parse(localStorage.getItem("highScores")) || [];
 var highScoresList = document.getElementById("scores");
 // Set question and answer choices 
 var questionArray = [
+    {
+        question: "Which symbol is used to denote an ID selector in CSS?",
+        answers: {
+            1: "#",
+            2: ".",
+            3: "@",
+            4: "&",
+
+        }
+    },
+    {
+        question: 'What does the CSS property "margin" control?',
+        answers: {
+            1: "font size",
+            2: "text color",
+            3: "spacing around an element",
+            4: "background color",
+
+        }
+    },
+    {
+        question: 'In JavaScript, what is the purpose of the "for" loop?',
+        answers: {
+            1: "Conditional statement",
+            2: "Function declaration",
+            3: "Repeating a block of code",
+            4: "Switch statement",
+
+        }
+    },
+    {
+        question: "What does HTML stand for? ",
+        answers: {
+            1: "Hyper Text Markup Language",
+            2: "Highly Textual Markup Language",
+            3: "Hyper Transfer Markup Language",
+            4: "Hypertext Transfer Markup Language",
+
+        }
+    },
+    {
+        question: "What does the CSS property 'box-sizing' control?",
+        answers: {
+            1: "Text alignment",
+            2: "Element visibility",
+            3: "How an element's total width and height is calculated",
+            4: "Font size and color",
+
+        }
+    },
+    {
+        question: "What is the main role of HTML's <form> element? ",
+        answers: {
+            1: "Display images",
+            2: "Define a paragraph",
+            3: "Create a container for user input",
+            4: "Change font style",
+
+        }
+    },
+    {
+        question: 'What is the purpose of the CSS property "display" set to "none"?',
+        answers: {
+            1: "Hide an element",
+            2: "Change text color",
+            3: "Create a border",
+            4: "Enlarge the font size",
+
+        }
+    },
+    {
+        question: "Which JavaScript method is used to add an element to the end of an array?",
+        answers: {
+            1: "concat()",
+            2: "pop()",
+            3: "push()",
+            4: "splice()",
+
+        }
+    },
+    {
+        question: "What does the HTML <img> tag define?",
+        answers: {
+            1: "Text paragraph",
+            2: "Image element",
+            3: "Hyperlink",
+            4: "List item",
+
+        }
+    },
+    {
+        question: "Which data structure in JavaScript is ordered and can contain duplicate values?",
+        answers: {
+            1: "Array",
+            2: "Object",
+            3: "Set",
+            4: "Map",
+
+        }
+    },
     {
         question: "What programming language is commonly used for adding interactivity to web pages? ",
         answers: {
@@ -135,7 +235,7 @@ var questionArray = [
 
 ];
 
-var answerArray = ["JavaScript", "Cascading Style Sheets", "<ul>", "link", "color", "alerts", "parenthesis", "all of the above", "quotes", "console.log"];
+var answerArray = ["#","spacing around an element","Repeating a block of code","Hyper Text Markup Language","How an element's total width and height is calculated","Create a container for user input","Hide an element","push()","Image element","Array","JavaScript", "Cascading Style Sheets", "<ul>", "link", "color", "alerts", "parenthesis", "all of the above", "quotes", "console.log"];
 
 function countdown() {
     // Use the setInterval() method to call a function to be executed every 1000 milliseconds, or 1 second
@@ -211,7 +311,7 @@ displayHighScores();
 // set starting values for text elements
 timer.textContent = timeLeft + " seconds for the test"
 question.textContent = "Coding Quiz Challenge";
-message.textContent = "Try to answer the following code related questions within the time limit. Incorrect answers will penalize your time by 5 seconds";
+message.textContent = "Try to answer the 20 following code related questions within the time limit. Incorrect answers will penalize your time by 3 seconds";
 
 function start(event) {
     event.preventDefault();
@@ -258,11 +358,11 @@ homeButton.addEventListener("click", function (event) {
     startButton.hidden = false;
     homeButton.hidden = true;
     score = 0; // Reset the score
-    timeLeft = 60; // Reset the timer
+    timeLeft = 90; // Reset the timer
     clearInterval(timeInterval); // Clear any existing interval
-timer.textContent = timeLeft + " seconds for the test"
-question.textContent = "Coding Quiz Challenge";
-message.textContent = "Try to answer the following code related questions within the time limit. Incorrect answers will penalize your time by 5 seconds";
+    timer.textContent = timeLeft + " seconds for the test"
+    question.textContent = "Coding Quiz Challenge";
+    message.textContent = "Try to answer the following code related questions within the time limit. Incorrect answers will penalize your time by 3 seconds";
 });
 
 restartButton.addEventListener("click", function (event) {
@@ -272,7 +372,7 @@ restartButton.addEventListener("click", function (event) {
     clearButton.hidden = true;
     highScoresList.hidden = true;
     score = 0; // Reset the score
-    timeLeft = 60; // Reset the timer
+    timeLeft = 90; // Reset the timer
     clearInterval(timeInterval); // Clear any existing interval
     timer.textContent = timeLeft + " seconds for the test";
     start(event); // Start the quiz again
@@ -292,16 +392,16 @@ qBtn4.addEventListener("click", questionTime);
 function questionTime(event) {
     event.preventDefault();
     if (event.target.firstChild.data == answerArray[i]) {
-        score = score + 10;
+        score = score + 5;
         localStorage.setItem("playerScore", score)
         console.log("Score", score)
         console.log(playerScore)
         i++;
     } else {
-        timeLeft = timeLeft - 5
+        timeLeft = timeLeft - 3
         i++;
     }
-    if (i == 10) {
+    if (i == 20) {
         clearInterval(timeInterval)
         timer.textContent = "Finished with " + timeLeft + " seconds remaining!"
         question.textContent = "Well Done!";
