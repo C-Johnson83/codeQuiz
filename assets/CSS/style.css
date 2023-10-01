@@ -77,7 +77,7 @@ form {
 }
 
 /* styles for the form's H1 element */
-form h1 {
+form h1, form h2{
     display: flex;
     flex-wrap: wrap;
     font-size: 3rem;
@@ -124,7 +124,7 @@ input {
         font-size: large;
     }
 
-    form h1 {
+    form h1, form h2 {
         font-size: 2rem;
         ;
     }
@@ -147,7 +147,7 @@ li {
         font-size: smaller;
     }
 /* change  form font to medium */
-    form h1 {
+    form h1, form h2{
         font-size: medium;
         ;
     }
