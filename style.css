@@ -103,6 +103,7 @@ li {
 }
 
 input {
+    text-align: center;
     text-transform: uppercase;
     color: var(--color1);
     margin: 5px;

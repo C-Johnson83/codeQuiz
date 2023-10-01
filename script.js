@@ -404,7 +404,8 @@ restartButton.addEventListener("click", function (event) {
 clearButton.addEventListener("click", function (event) {
     event.preventDefault();
     localStorage.removeItem("highScores"); // Remove the high scores data from local storage
-    highScoresList.innerHTML = 'HIGH SCORES:\n'; // Clear the displayed high scores?
+    highScoresList.innerHTML = 'HIGH SCORES:\n';
+    highScoresArray = [] // Clear the array of high scores?
 });
 
 // Add listening event to the question buttons
