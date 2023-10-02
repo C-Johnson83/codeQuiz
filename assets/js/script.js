@@ -337,6 +337,7 @@ message.textContent = "Try to answer the 20 following code related questions wit
 // set starting values for the start button
 function start(event) {
     event.preventDefault();
+    input.value = ''
     countdown(); // Start the timer
     formDiv.appendChild(qBtn1);//
     formDiv.appendChild(qBtn2);//create buttons for the answers
@@ -393,6 +394,7 @@ restartButton.addEventListener("click", function (event) {
     restartButton.hidden = true;
     clearButton.hidden = true;
     highScoresList.hidden = true;
+    homeButton.hidden = true;    //
     score = 0; // Reset the score
     timeLeft = 90; // Reset the timer
     clearInterval(timeInterval); // Clear any existing interval
